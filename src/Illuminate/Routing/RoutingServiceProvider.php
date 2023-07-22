@@ -26,6 +26,7 @@ class RoutingServiceProvider extends ServiceProvider
     {
         $this->registerRouter();
         $this->registerUrlGenerator();
+        $this->registerUrlProtocol();
         $this->registerRedirector();
         $this->registerPsrRequest();
         $this->registerPsrResponse();
@@ -88,6 +89,18 @@ class RoutingServiceProvider extends ServiceProvider
             });
 
             return $url;
+        });
+    }
+
+    /**
+     * Register the url protocol instance.
+     *
+     * @return void
+     */
+    protected function registerUrlProtocol()
+    {
+        $this->app->singleton('url.protocol', function ($app) {
+            return new UrlProtocol;
         });
     }
 
