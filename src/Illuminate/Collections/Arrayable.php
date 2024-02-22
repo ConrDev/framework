@@ -5,6 +5,7 @@ namespace Illuminate\Support;
 use ArrayAccess;
 use Generator;
 use Illuminate\Contracts\Support\Arrayable as ArrayableContract;
+use Illuminate\Contracts\Support\CanBeEscapedWhenCastToString;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Traits\EnumeratesValues;
 use Illuminate\Support\Traits\Macroable;
@@ -16,14 +17,11 @@ use JsonSerializable;
  * @template-covariant TValue
  *
  * @implements \ArrayAccess<TKey, TValue>
- * @implements \JsonSerializable<TKey, TValue>
  * @implements \Illuminate\Support\Enumerable<TKey, TValue>
- * @implements \Illuminate\Contracts\Support\Arrayable<TKey, TValue>
- * @implements \Illuminate\Contracts\Support\Jsonable<TKey, TValue>
  *
  * @extends \Illuminate\Support\Arr<TKey, TValue>
  */
-class Arrayable implements ArrayAccess, ArrayableContract, Jsonable, JsonSerializable
+class Arrayable implements ArrayAccess, Enumerable, CanBeEscapedWhenCastToString
 {
     /**
      * @use \Illuminate\Support\Traits\EnumeratesValues<TKey, TValue>
