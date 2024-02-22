@@ -4,6 +4,7 @@ namespace Illuminate\Tests\Support;
 
 use ArrayObject;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Arrayable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
@@ -12,6 +13,19 @@ use stdClass;
 
 class SupportArrTest extends TestCase
 {
+    public function testOf()
+    {
+        $this->assertInstanceOf(Arrayable::class, Arr::of([]));
+        $this->assertInstanceOf(Arrayable::class, Arr::of([null]));
+        $this->assertInstanceOf(Arrayable::class, Arr::of([1, 2]));
+        $this->assertInstanceOf(Arrayable::class, Arr::of(['a' => 1, 'b' => 2]));
+
+        $this->assertNotInstanceOf(Arrayable::class, Arr::of(null));
+        $this->assertNotInstanceOf(Arrayable::class, Arr::of(new Collection));
+        $this->assertNotInstanceOf(Arrayable::class, Arr::of(new stdClass));
+        $this->assertNotInstanceOf(Arrayable::class, Arr::of((object) ['a' => 1, 'b' => 2]));
+    }
+
     public function testAccessible()
     {
         $this->assertTrue(Arr::accessible([]));
